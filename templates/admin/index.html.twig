@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <div class="count">
+        Total - {{ pagination.getTotalItemCount }}
+    </div>
+
+    <table class="table table-light">
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, '#', 'n.id') }}</th>
+            <th{% if pagination.isSorted('n.title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Title', 'n.title') }}
+            </th>
+            <th{% if pagination.isSorted('n.description') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Description', 'n.description') }}
+            </th>
+            <th{% if pagination.isSorted('n.created_at') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Date Added', 'n.created_at') }}
+            </th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in pagination %}
+            <tr>
+                <td>{{  loop.index}}</td>
+                <td>{{ article.title }}</td>
+                <td>{{ article.description }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
